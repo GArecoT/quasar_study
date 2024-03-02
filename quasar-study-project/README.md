@@ -1,6 +1,12 @@
-# Quasar App (quasar-study-project)
+# Quasar Study Project (quasar-study-project)
 
-A Quasar Project
+This is a Quasar study and pratice project. This project has the following:
+
+## Components
+### Card
+This is a simple card with image and text.
+
+![](./readme_files/Card.png "Text to show on mouseover")
 
 ## Install the dependencies
 ```bash
@@ -36,6 +42,3 @@ npm run format
 ```bash
 quasar build
 ```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
