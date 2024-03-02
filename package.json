@@ -1,6 +1,0 @@
-{
-  "devDependencies": {
-    "@unocss/preset-wind": "^0.58.5",
-    "unocss": "^0.58.5"
-  }
-}
