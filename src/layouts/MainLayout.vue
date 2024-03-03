@@ -9,7 +9,7 @@
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
-          class="sm"
+          class="st-sm"
         />
 
         <q-toolbar-title> Quasar App </q-toolbar-title>
@@ -43,39 +43,9 @@ import EssentialButton from 'components/EssentialButton.vue';
 
 const linksList = [
   {
-    title: 'Docs',
+    title: 'Card',
     caption: 'quasar.dev',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    link: 'https://awesome.quasar.dev',
+    link: '/#/card',
   },
 ];
 
