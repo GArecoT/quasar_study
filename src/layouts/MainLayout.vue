@@ -44,8 +44,11 @@ import EssentialButton from 'components/EssentialButton.vue';
 const linksList = [
   {
     title: 'Card',
-    caption: 'quasar.dev',
     link: '/#/card',
+  },
+  {
+    title: 'Camera',
+    link: '/#/camera',
   },
 ];
 
