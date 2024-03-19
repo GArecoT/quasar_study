@@ -9,7 +9,7 @@
           />
         </template>
 
-        <h1 class="text-white">Components</h1>
+        <h2 class="text-white">Components</h2>
       </q-parallax>
     </div>
     <div
