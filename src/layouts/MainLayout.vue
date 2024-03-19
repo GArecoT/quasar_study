@@ -12,8 +12,10 @@
           class="lt-md"
         />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-        <EssentialButton
+        <q-toolbar-title @click="route.push('/')" class="cursor-pointer">
+          Study App
+        </q-toolbar-title>
+        <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
@@ -37,9 +39,9 @@
 </template>
 
 <script lang="ts">
+import { useRouter } from 'vue-router';
 import { defineComponent, ref } from 'vue';
 import EssentialLink from 'components/EssentialLink.vue';
-import EssentialButton from 'components/EssentialButton.vue';
 
 const linksList = [
   {
@@ -57,13 +59,14 @@ export default defineComponent({
 
   components: {
     EssentialLink,
-    EssentialButton,
   },
 
   setup() {
     const leftDrawerOpen = ref(false);
+    const route = useRouter();
 
     return {
+      route,
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer() {
@@ -75,6 +78,6 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .navbar {
-  height: 100px;
+  height: 70px;
 }
 </style>
