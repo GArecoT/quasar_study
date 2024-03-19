@@ -1,6 +1,17 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row full-width">
+      <q-file
+        color="teal"
+        filled
+        v-model="photoFile"
+        label="Foto"
+        class="q-mx-xs col-7"
+      >
+        <template v-slot:prepend>
+          <q-icon name="cloud_upload" />
+        </template>
+      </q-file>
       <q-btn
         label="Tirar foto"
         @click="
@@ -8,19 +19,11 @@
             openCamera = true;
           }
         "
-        class="q-mx-xs"
-      ></q-btn>
-      <q-file
-        color="teal"
-        filled
-        v-model="photoFile"
-        label="Foto"
-        class="q-mx-xs"
-      >
-        <template v-slot:prepend>
-          <q-icon name="cloud_upload" />
-        </template>
-      </q-file>
+        class="q-mx-xs col-4"
+      />
+    </div>
+    <div class="row max-width justify-center">
+      <q-btn label="Enviar" color="primary" class="q-ma-sm full-width" />
     </div>
     <q-dialog
       v-model="openCamera"
@@ -30,16 +33,17 @@
       transition-hide="slide-down"
     >
       <q-card>
-        <div v-if="!openSavedImage">
+        <div v-show="!openSavedImage">
           <WebCamUI
             ref="camera"
             @photoTaken="photoTaken"
             :fullscreenButton="{ display: false }"
+            :takePhotoButton="{ display: false }"
             style="padding-bottom: 80px"
           />
           <div
             class="full-width bg-grey-2 absolute-bottom flex justify-between items-center q-px-sm"
-            style="height: 80px; border-radius: 15px"
+            style="height: 80px; border-radius: 15px; position: sticky"
           >
             <q-btn
               round
