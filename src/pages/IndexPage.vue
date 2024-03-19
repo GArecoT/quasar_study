@@ -1,49 +1,46 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="flex content-start justify-center q-mt-none">
+    <div class="row full-width justify-center">
+      <h2>Components</h2>
+    </div>
+    <div class="row justify-center">
+      <q-card
+        class="my-card bg-green-5 text-white q-ma-sm cursor-pointer"
+        style="width: 250px"
+        @click="route.push('/card')"
+      >
+        <q-card-section>
+          <div class="text-h6">Card Component</div>
+          <div class="text-subtitle2">A responsive card component.</div>
+        </q-card-section>
+
+        <q-card-actions>
+          <q-btn flat>Show</q-btn>
+        </q-card-actions>
+      </q-card>
+    </div>
+    <div class="row">
+      <q-card
+        class="my-card bg-purple-5 text-white q-ma-sm cursor-pointer"
+        style="width: 250px"
+        @click="route.push('/camera')"
+      >
+        <q-card-section>
+          <div class="text-h6">Camera Component</div>
+          <div class="text-subtitle2">
+            A mobile friendly file form with a camera component.
+          </div>
+        </q-card-section>
+
+        <q-card-actions>
+          <q-btn flat>Show</q-btn>
+        </q-card-actions>
+      </q-card>
+    </div>
   </q-page>
 </template>
 
-<script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-import { defineComponent, ref } from 'vue';
-
-export default defineComponent({
-  name: 'IndexPage',
-  components: { ExampleComponent },
-  setup () {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
-  }
-});
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+const route = useRouter();
 </script>
