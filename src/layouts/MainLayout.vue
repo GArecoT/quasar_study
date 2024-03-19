@@ -9,7 +9,7 @@
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
-          class="st-sm"
+          class="lt-md"
         />
 
         <q-toolbar-title> Quasar App </q-toolbar-title>
@@ -21,7 +21,7 @@
         />
       </q-toolbar>
     </q-header>
-    <q-drawer v-model="leftDrawerOpen" bordered class="sm">
+    <q-drawer v-model="leftDrawerOpen" bordered class="lt-md">
       <q-list class="q-mt-md">
         <EssentialLink
           v-for="link in essentialLinks"
@@ -44,8 +44,11 @@ import EssentialButton from 'components/EssentialButton.vue';
 const linksList = [
   {
     title: 'Card',
-    caption: 'quasar.dev',
-    link: '/#/card',
+    link: '/card',
+  },
+  {
+    title: 'Camera',
+    link: '/camera',
   },
 ];
 
