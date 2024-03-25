@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated>
+    <q-header>
       <q-toolbar class="navbar bg-grey-3 text-black">
         <q-btn
           flat
@@ -78,6 +78,6 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .navbar {
-  height: 70px;
+  height: 80px;
 }
 </style>
