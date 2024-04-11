@@ -1,8 +1,8 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <CalendarComponent />
+    <CalendarComponentDay />
   </q-page>
 </template>
 <script setup>
-import CalendarComponent from 'components/CalendarComponent.vue';
+import CalendarComponentDay from 'components/CalendarComponentDay.vue';
 </script>
