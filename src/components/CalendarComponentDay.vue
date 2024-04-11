@@ -51,14 +51,20 @@
         icon="add"
         style="height: 30px"
         round
+        @click="eventDialog = true"
       />
     </div>
   </div>
+  <q-dialog v-model="eventDialog">
+    <AddEventComponent @newEvent="(props) => console.log(props)" />
+  </q-dialog>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import draggable from 'vuedraggable';
+import AddEventComponent from 'components/AddEventComponent.vue';
+const eventDialog = ref(false);
 const columns = ref([
   {
     name: 'time',
