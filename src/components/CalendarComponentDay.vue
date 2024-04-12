@@ -63,8 +63,9 @@
   </div>
   <q-dialog v-model="eventDialog">
     <AddEventComponent
-      @newEvent="(props) => addEvent(props)"
+      @new-event="(props) => addEvent(props)"
       @edit-event="(props) => editEvent(props)"
+      @delete-event="(props) => deleteEvent(props)"
       :edit="isEdit"
       :eventEdit="eventEdit"
     />
@@ -228,6 +229,15 @@ function editEvent(event) {
             rows.value[item].events.push(event);
           }
         }
+      }
+    }
+  }
+}
+function deleteEvent(event) {
+  for (let item in rows.value) {
+    for (let temp in rows.value[item].events) {
+      if (event.id == rows.value[item].events[temp].id) {
+        rows.value[item].events.splice(temp, 1);
       }
     }
   }

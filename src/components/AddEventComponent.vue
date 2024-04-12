@@ -57,7 +57,14 @@
           />
         </div>
       </div>
-      <div class="flex full-width justify-end q-pa-md">
+      <div class="flex full-width justify-end q-pa-md q-gutter-x-sm">
+        <q-btn
+          v-if="props.edit"
+          label="Delete"
+          color="red-5"
+          v-close-popup
+          @click="$emit('deleteEvent', event)"
+        />
         <q-btn
           label="Save"
           :disabled="
