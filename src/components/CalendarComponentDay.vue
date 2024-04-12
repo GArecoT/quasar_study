@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h6 class="text-center q-my-sm">Daily Calendar</h6>
     <div class="flex content-start">
       <div>
         <q-table
