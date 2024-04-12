@@ -210,8 +210,25 @@ function addEvent(event) {
 function editEvent(event) {
   for (let item in rows.value) {
     for (let temp in rows.value[item].events) {
-      if (event.id == rows.value[item].events[temp].id)
-        console.log(rows.value[item].events[temp]);
+      if (event.id == rows.value[item].events[temp].id) {
+        rows.value[item].events[temp].name = event.name;
+        rows.value[item].events[temp].color = event.color;
+        //if the time is different
+        if (
+          event.time != undefined &&
+          event.time != null &&
+          rows.value[item].time !== event.time
+        )
+          rows.value[item].events.splice(temp, 1);
+
+        for (let item in rows.value) {
+          if (event.time == rows.value[item].time) {
+            //let tempEvent = structuredClone(event);
+            delete event.time;
+            rows.value[item].events.push(event);
+          }
+        }
+      }
     }
   }
 }
