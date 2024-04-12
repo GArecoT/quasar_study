@@ -68,7 +68,9 @@
           color="blue-5"
           v-close-popup
           type="submit"
-          @click="$emit('newEvent', event)"
+          @click="
+            props.edit ? $emit('editEvent', event) : $emit('newEvent', event)
+          "
         />
       </div>
     </q-form>
@@ -76,7 +78,11 @@
 </template>
 <script setup>
 import { useQuasar } from 'quasar';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+const props = defineProps({
+  edit: { type: Boolean, default: false },
+  eventEdit: Object,
+});
 const q = useQuasar();
 const event = ref({ name: '', time: '', color: '' });
 const times = [
@@ -105,4 +111,13 @@ const times = [
   '22:00',
   '23:00',
 ];
+onMounted(() => {
+  if (props.edit) {
+    console.log(props.eventEdit);
+    event.value.name = props.eventEdit.name;
+    event.value.time = props.eventEdit.time;
+    event.value.color = props.eventEdit.color;
+    event.value.id = props.eventEdit.id;
+  }
+});
 </script>

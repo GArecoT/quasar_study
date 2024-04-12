@@ -35,6 +35,7 @@
                       class="q-ma-xs q-py-xs q-px-sm cursor-pointer"
                       :class="'bg-' + element.color + '-3'"
                       style="border-radius: 5px"
+                      @click="handleClickEvent(element)"
                     >
                       {{ element.name }}
                     </div>
@@ -51,12 +52,22 @@
         icon="add"
         style="height: 30px"
         round
-        @click="eventDialog = true"
+        @click="
+          () => {
+            eventDialog = true;
+            isEdit = false;
+          }
+        "
       />
     </div>
   </div>
   <q-dialog v-model="eventDialog">
-    <AddEventComponent @newEvent="(props) => console.log(props)" />
+    <AddEventComponent
+      @newEvent="(props) => addEvent(props)"
+      @edit-event="(props) => editEvent(props)"
+      :edit="isEdit"
+      :eventEdit="eventEdit"
+    />
   </q-dialog>
 </template>
 
@@ -65,6 +76,9 @@ import { ref } from 'vue';
 import draggable from 'vuedraggable';
 import AddEventComponent from 'components/AddEventComponent.vue';
 const eventDialog = ref(false);
+const isEdit = ref(false);
+const eventEdit = ref({});
+let id = 5;
 const columns = ref([
   {
     name: 'time',
@@ -183,4 +197,27 @@ const rows = ref([
     events: [],
   },
 ]);
+
+function addEvent(event) {
+  const temp = { name: event.name, color: event.color, id: id + 1 };
+  for (let item in rows.value) {
+    if (rows.value[item].time == event.time) {
+      rows.value[item].events[rows.value[item].events.length] = temp;
+    }
+  }
+  id++;
+}
+function editEvent(event) {
+  for (let item in rows.value) {
+    for (let temp in rows.value[item].events) {
+      if (event.id == rows.value[item].events[temp].id)
+        console.log(rows.value[item].events[temp]);
+    }
+  }
+}
+function handleClickEvent(event) {
+  isEdit.value = true;
+  eventEdit.value = event;
+  eventDialog.value = true;
+}
 </script>
