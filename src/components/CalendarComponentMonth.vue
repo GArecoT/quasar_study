@@ -24,8 +24,24 @@
     >
       <template v-slot:item="props">
         <div style="width: 14.2%">
-          <q-card flat bordered style="min-height: 200px">
-            <q-card-section class="text-center q-pa-none q-ma-xs">
+          <q-card
+            flat
+            bordered
+            style="min-height: 200px"
+            :class="props.row.dummy ? 'bg-grey-2' : 'bg-white'"
+          >
+            <q-card-section
+              class="text-center q-pa-none q-ma-xs"
+              v-if="props.pageIndex < 7"
+            >
+              <span style="border-radius: 20px">
+                {{ daysWeek[props.pageIndex % 7] }}
+              </span>
+            </q-card-section>
+            <q-card-section
+              class="text-center q-pa-none q-ma-xs"
+              v-if="!props.row.dummy"
+            >
               <span style="border-radius: 20px">
                 {{ props.row.day }}
               </span>
@@ -33,6 +49,7 @@
             <q-separator class="q-mx-xs" />
             <q-card-section class="q-pa-xs">
               <draggable
+                v-if="!props.row.dummy"
                 :list="props.row.events"
                 group="events"
                 itemKey="id"
@@ -57,22 +74,34 @@
   </div>
 </template>
 <script setup>
+//.TODO: create blank
 import draggable from 'vuedraggable';
 import { ref } from 'vue';
 const today = ref(new Date());
-const month = ref([{}]);
+const month = ref([]);
 const numDays = new Date(
   today.value.getFullYear(),
   today.value.getMonth() + 1,
   0
 ).getDate();
+const firstDayWeek = new Date(
+  today.value.getFullYear(),
+  today.value.getMonth() + 1,
+  0
+).getDay();
 
+const daysWeek = ['SUN.', 'MON.', 'TUE.', 'WED.', 'THU.', 'FRI.', 'SAT.'];
 //Create object
-month.value.pop();
-for (let day = 0; day < numDays; day++) {
-  const temp = { day: day + 1, events: [] };
-  month.value.push(temp);
+//Create dummy days
+for (let day = 0; day < firstDayWeek; day++) {
+  month.value.push({ day: '', events: [], dummy: true });
 }
-let temp = { time: '12:00', name: 'Lunch with Ana ❤️❤️', color: 'green' };
-month.value[2].events[0] = temp;
+for (let day = 0; day < numDays; day++) {
+  month.value.push({ day: day + 1, events: [] });
+}
+month.value[2].events[0] = {
+  time: '12:00',
+  name: 'Lunch with Ana ❤️❤️',
+  color: 'green',
+};
 </script>
