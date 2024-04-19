@@ -15,6 +15,7 @@
       />
     </div>
     <q-table
+      square
       dense
       :rows="month"
       row-key="day"
@@ -26,6 +27,7 @@
       <template v-slot:item="props">
         <div style="width: 14.2%">
           <q-card
+            square
             flat
             bordered
             style="min-height: 200px"
@@ -61,7 +63,7 @@
                     class="q-py-xs q-px-sm cursor-pointer"
                     :class="'bg-' + element.color + '-3'"
                     style="border-radius: 5px"
-                    @click="handleClickEvent(element)"
+                    @click="handleClickEvent(element, props.row.day)"
                   >
                     {{ element.time }} - {{ element.name }}
                   </div>
@@ -88,7 +90,7 @@
 //.TODO: create blank
 import AddEventComponent from 'components/AddEventComponent.vue';
 import draggable from 'vuedraggable';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 const eventDialog = ref(false);
 const eventEdit = ref({});
 const isEdit = ref(false);
@@ -115,14 +117,22 @@ for (let day = 0; day < firstDayWeek; day++) {
 for (let day = 0; day < numDays; day++) {
   month.value.push({ day: day + 1, events: [] });
 }
-// month.value[2].events[0] = {
-//   time: '12:00',
-//   name: 'Lunch with Ana ❤️❤️',
-//   color: 'green',
-//   id: 0,
-//   date: today.value.toLocaleDateString('jp-JP'),
-// };
+console.log(
+  today.value.getFullYear() +
+    '-' +
+    today.value.getMonth().toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    }) +
+    '-' +
+    today.value.getDate().toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    })
+);
+
 function addEvent(props) {
+  console.log(props);
   if (
     parseInt(props.date.toString().slice(5, 7)) ==
     today.value.getMonth() + 1
@@ -134,7 +144,6 @@ function addEvent(props) {
         name: props.name,
         color: props.color,
         id: id + 1,
-        date: props.date,
       });
     id++;
   }
@@ -150,9 +159,43 @@ function editEvent(props) {
   deleteEvent(props);
   addEvent(props);
 }
-function handleClickEvent(props) {
+function handleClickEvent(props, day) {
+  console.log(day);
   isEdit.value = true;
   eventEdit.value = props;
+  eventEdit.value.date =
+    today.value.getFullYear() +
+    '-' +
+    (today.value.getMonth() + 1).toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    }) +
+    '-' +
+    day.toLocaleString('en-US', {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    });
   eventDialog.value = true;
 }
+
+onMounted(() => {
+  addEvent({
+    time: '12:00',
+    name: 'Lunch with Ana ❤️❤️',
+    color: 'green',
+    id: 0,
+    date:
+      today.value.getFullYear() +
+      '-' +
+      (today.value.getMonth() + 1).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false,
+      }) +
+      '-' +
+      today.value.getDate().toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false,
+      }),
+  });
+});
 </script>
