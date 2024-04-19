@@ -46,6 +46,20 @@
           <q-btn flat>Show</q-btn>
         </q-card-actions>
       </q-card>
+      <q-card
+        class="my-card bg-yellow-8 text-white q-ma-sm cursor-pointer"
+        style="width: 250px"
+        @click="route.push('/calendar')"
+      >
+        <q-card-section>
+          <div class="text-h6">Calendar Component</div>
+          <div class="text-subtitle2">A drag and drop calendar component.</div>
+        </q-card-section>
+
+        <q-card-actions>
+          <q-btn flat>Show</q-btn>
+        </q-card-actions>
+      </q-card>
     </div>
   </q-page>
 </template>
