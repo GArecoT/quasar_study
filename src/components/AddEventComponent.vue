@@ -153,7 +153,7 @@
           label="Delete"
           color="red-5"
           v-close-popup
-          @click="$emit('deleteEvent', event)"
+          @click="$emit('deleteEvent', eventMonth)"
         />
         <q-btn
           label="Save"
@@ -170,7 +170,7 @@
           type="submit"
           @click="
             props.edit
-              ? $emit('editEvent', event)
+              ? $emit('editEvent', eventMonth)
               : $emit('newEvent', eventMonth)
           "
         />
@@ -218,10 +218,18 @@ const times = [
 onMounted(() => {
   if (props.edit) {
     console.log(props.eventEdit);
-    event.value.name = props.eventEdit.name;
-    event.value.time = props.eventEdit.time;
-    event.value.color = props.eventEdit.color;
-    event.value.id = props.eventEdit.id;
+    if (props.isMonth) {
+      eventMonth.value.name = props.eventEdit.name;
+      eventMonth.value.time = props.eventEdit.time;
+      eventMonth.value.color = props.eventEdit.color;
+      eventMonth.value.id = props.eventEdit.id;
+      eventMonth.value.date = props.eventEdit.date;
+    } else {
+      event.value.name = props.eventEdit.name;
+      event.value.time = props.eventEdit.time;
+      event.value.color = props.eventEdit.color;
+      event.value.id = props.eventEdit.id;
+    }
   }
 });
 </script>

@@ -94,6 +94,7 @@ const eventEdit = ref({});
 const isEdit = ref(false);
 const today = ref(new Date());
 const month = ref([]);
+let id = 1;
 const numDays = new Date(
   today.value.getFullYear(),
   today.value.getMonth() + 1,
@@ -114,15 +115,44 @@ for (let day = 0; day < firstDayWeek; day++) {
 for (let day = 0; day < numDays; day++) {
   month.value.push({ day: day + 1, events: [] });
 }
-month.value[2].events[0] = {
-  time: '12:00',
-  name: 'Lunch with Ana ❤️❤️',
-  color: 'green',
-};
+// month.value[2].events[0] = {
+//   time: '12:00',
+//   name: 'Lunch with Ana ❤️❤️',
+//   color: 'green',
+//   id: 0,
+//   date: today.value.toLocaleDateString('jp-JP'),
+// };
 function addEvent(props) {
-  console.log('evento', props.date.toString().slice(8, 10));
-  month.value
-    .find(({ day }) => day == props.date.toString().slice(8, 10))
-    .events.push({ time: props.time, name: props.name, color: props.color });
+  if (
+    parseInt(props.date.toString().slice(5, 7)) ==
+    today.value.getMonth() + 1
+  ) {
+    month.value
+      .find(({ day }) => day == props.date.toString().slice(8, 10))
+      .events.push({
+        time: props.time,
+        name: props.name,
+        color: props.color,
+        id: id + 1,
+        date: props.date,
+      });
+    id++;
+  }
+}
+function deleteEvent(props) {
+  for (let day in month.value) {
+    for (let event in month.value[day]?.events)
+      if (month.value[day].events[event].id == props.id)
+        month.value[day].events.splice(event, 1);
+  }
+}
+function editEvent(props) {
+  deleteEvent(props);
+  addEvent(props);
+}
+function handleClickEvent(props) {
+  isEdit.value = true;
+  eventEdit.value = props;
+  eventDialog.value = true;
 }
 </script>
