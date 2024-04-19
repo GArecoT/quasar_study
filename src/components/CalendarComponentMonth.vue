@@ -2,7 +2,7 @@
   <div class="full-width">
     <div class="flex justify-between content-center">
       <div />
-      <h6 class="text-capitalize">
+      <h6 class="text-capitalize" style="padding-left: 30px">
         {{ today.toLocaleString('default', { month: 'long' }) }}
       </h6>
       <q-btn
@@ -11,6 +11,7 @@
         icon="add"
         style="height: 30px"
         round
+        @click="eventDialog = true"
       />
     </div>
     <q-table
@@ -72,11 +73,25 @@
       </template>
     </q-table>
   </div>
+  <q-dialog v-model="eventDialog">
+    <AddEventComponent
+      @new-event="(props) => addEvent(props)"
+      @edit-event="(props) => editEvent(props)"
+      @delete-event="(props) => deleteEvent(props)"
+      :edit="isEdit"
+      :eventEdit="eventEdit"
+      isMonth
+    />
+  </q-dialog>
 </template>
 <script setup>
 //.TODO: create blank
+import AddEventComponent from 'components/AddEventComponent.vue';
 import draggable from 'vuedraggable';
 import { ref } from 'vue';
+const eventDialog = ref(false);
+const eventEdit = ref({});
+const isEdit = ref(false);
 const today = ref(new Date());
 const month = ref([]);
 const numDays = new Date(
@@ -104,4 +119,10 @@ month.value[2].events[0] = {
   name: 'Lunch with Ana ❤️❤️',
   color: 'green',
 };
+function addEvent(props) {
+  console.log('evento', props.date.toString().slice(8, 10));
+  month.value
+    .find(({ day }) => day == props.date.toString().slice(8, 10))
+    .events.push({ time: props.time, name: props.name, color: props.color });
+}
 </script>
