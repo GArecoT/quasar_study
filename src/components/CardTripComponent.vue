@@ -1,8 +1,8 @@
 <template>
-  <q-card class="bg-white card_trip">
+  <q-card class="bg-white card_trip shadow-1 q-mx-xs">
     <q-img
       :src="props.img"
-      :ratio="4 / 3"
+      :ratio="10 / 9"
       :fit="cover"
       style="border-radius: 10px"
     />
@@ -16,16 +16,22 @@
       style="position: absolute; right: 5px; top: 5px"
       @click="favorite = !favorite"
     />
-    <div class="flex" style="min-height: 170px">
+    <div class="flex">
       <div>
-        <div class="flex full-width q-pa-sm items-center">
+        <div
+          class="flex full-width q-pa-sm items-center"
+          style="min-height: 45px"
+        >
           <span
             v-if="props.highlight_text != ''"
-            style="border: 1px solid; border-radius: 5px"
+            style="border: 1px solid; border-radius: 5px; font-size: 0.8rem"
             class="q-py-xs q-px-sm text-weight-medium text-uppercase"
             >{{ props.highlight_text }}</span
           >
-          <div class="q-ml-xs q-gutter-x-sm">
+          <div
+            class="q-gutter-x-sm"
+            :class="props.highlight_text == '' ? '' : 'q-pl-xs'"
+          >
             <q-icon name="directions_bike" v-if="props.cycling">
               <q-tooltip> Ciclismo </q-tooltip>
             </q-icon>
@@ -41,14 +47,17 @@
             <q-icon name="coffee_maker" v-if="props.breakfast">
               <q-tooltip> Café da manhã </q-tooltip>
             </q-icon>
+            <q-icon name="hotel" v-if="props.hotel">
+              <q-tooltip> Pousada </q-tooltip>
+            </q-icon>
           </div>
         </div>
         <div
-          class="q-px-sm text-weight-medium"
+          class="q-px-sm text-weight-medium text-left"
           style="
-            font-size: 1.2rem;
-            max-height: 80px;
-            min-height: 80px;
+            font-size: 1rem;
+            max-height: 60px;
+            min-height: 60px;
             overflow-y: hidden;
             text-overflow: ellipsis;
           "
@@ -59,7 +68,14 @@
       <div
         class="q-pa-sm flex q-gutter-x-sm self-end justify-between q-mt-auto"
       >
-        <q-rating size="1.2rem" color="primary" readonly v-model="rating" />
+        <q-rating
+          size="1rem"
+          color="primary"
+          readonly
+          v-model="rating"
+          flat
+          icon-half="star_half"
+        />
         <span class="q-pt-xs"
           >A partir de:
           <span class="text-weight-medium">R$ {{ props.price }}</span></span
@@ -86,6 +102,7 @@ const props = defineProps({
   diving: { type: Boolean, required: false, default: false },
   hiking: { type: Boolean, required: false, default: false },
   breakfast: { type: Boolean, required: false, default: false },
+  hotel: { type: Boolean, required: false, default: false },
   favorite: { type: Boolean, required: false, default: false },
 });
 const rating = ref(props.rating);
@@ -97,10 +114,6 @@ onMounted(() => {
 </script>
 <style>
 .card_trip {
-  min-width: 300px;
-  min-height: 400px;
-  max-width: 300px;
-  max-height: 400px;
   border-radius: 10px;
 }
 </style>

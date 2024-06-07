@@ -8,6 +8,7 @@ const routes = [
       { path: "camera", component: () => import("pages/CameraPage.vue") },
       { path: "login", component: () => import("pages/LoginPage.vue") },
       { path: "calendar", component: () => import("pages/CalendarPage.vue") },
+      { path: "trip", component: () => import("pages/TripPage.vue") },
     ],
   },
 
