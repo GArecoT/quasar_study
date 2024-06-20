@@ -13,7 +13,14 @@
           <q-icon name="search" />
         </template>
         <template v-slot:append>
-          <q-btn label="Pesquisar" rounded unelevated color="primary" />
+          <q-btn
+            label="Pesquisar"
+            rounded
+            unelevated
+            color="primary"
+            style="height: 80%; right: -5px"
+            class="q-ma-none"
+          />
         </template>
       </q-input>
     </div>
@@ -103,7 +110,12 @@
         <span class="q-pa-sm q-mt-sm" style="font-size: 1.2rem"
           >Categorias</span
         >
-        <Carousel :breakpoints="breakpoints" style="max-width: 1200px">
+        <Carousel
+          :breakpoints="breakpoints"
+          style="max-width: 1200px"
+          :mouseDrag="false"
+          :touchDrag="false"
+        >
           <Slide
             v-for="category in categories"
             :key="category.title"
