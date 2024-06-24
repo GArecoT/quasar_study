@@ -118,3 +118,8 @@ onMounted(() => {
   setupLeafletMap(map);
 });
 </script>
+<style scoped>
+.leaflet-container :focus:not(:focus-visible) {
+  outline: 0;
+}
+</style>
