@@ -19,10 +19,11 @@
           />
           <q-btn
             round
-            icon="favorite_border"
-            color="black"
+            :icon="detalhes.favorite ? 'favorite' : 'favorite_border'"
+            :color="detalhes.favorite ? 'red-5' : 'black'"
             outline
             style="width: 1rem; height: 1rem"
+            @click="detalhes.favorite = !detalhes.favorite"
           />
         </div>
       </div>
@@ -150,6 +151,7 @@ import TripReserve from '../components/TripReserve.vue';
 const q = ref(useQuasar());
 const mostrar_mais = ref(false);
 const detalhes = ref({
+  favorite: false,
   nome: 'Balneário em Bonito com trilha e tobogã.',
   fornecedor: 'Por: Marcelo Batata Frita',
   num_avaliacoes: 102,

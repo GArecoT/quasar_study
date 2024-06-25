@@ -1,11 +1,6 @@
 <template>
   <q-card class="bg-white category-trip shadow-1 q-mx-xs">
-    <q-img
-      :src="props.img"
-      :ratio="4 / 4"
-      :fit="cover"
-      style="border-radius: 10px"
-    >
+    <q-img :src="props.img" :ratio="4 / 4" style="border-radius: 10px">
       <div
         class="flex content-end items-end full-width q-pa-sm full-height banner-trip-content"
       >
@@ -29,16 +24,6 @@ const props = defineProps({
     default: 'https://cdn.quasar.dev/img/parallax2.jpg',
   },
   title: { type: String, required: true, default: '' },
-  highlight_text: { type: String, required: false, default: '' },
-  price: { type: String, required: true, default: '' },
-  rating: { type: Number, required: true, default: 0 },
-  cycling: { type: Boolean, required: false, default: false },
-  pool: { type: Boolean, required: false, default: false },
-  diving: { type: Boolean, required: false, default: false },
-  hiking: { type: Boolean, required: false, default: false },
-  breakfast: { type: Boolean, required: false, default: false },
-  hotel: { type: Boolean, required: false, default: false },
-  favorite: { type: Boolean, required: false, default: false },
 });
 const rating = ref(props.rating);
 const favorite = ref(props.favorite);

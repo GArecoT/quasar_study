@@ -1,10 +1,10 @@
 <template>
-  <q-card class="bg-white card_trip shadow-1 q-mx-xs">
+  <q-card class="bg-white card_trip shadow-1 q-mx-xs cursor-pointer">
     <q-img
       :src="props.img"
       :ratio="10 / 9"
-      :fit="cover"
       style="border-radius: 10px"
+      @click="router.push('/trip_details')"
     />
     <q-btn
       color="white"
@@ -13,10 +13,10 @@
       round
       unelevated
       class="cursor-pointer"
-      style="position: absolute; right: 5px; top: 5px"
+      style="position: absolute; right: 5px; top: 5px; z-index: 500"
       @click="favorite = !favorite"
     />
-    <div class="flex">
+    <div class="flex" @click="router.push('/trip_details')">
       <div>
         <div
           class="flex full-width q-pa-sm items-center"
@@ -76,6 +76,9 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { botoes } from 'src/utils/trip';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const props = defineProps({
   img: {

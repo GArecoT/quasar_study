@@ -45,8 +45,8 @@
           transition-hide="scale"
         >
           <div
-            style="max-width: 320px"
-            class="q-pa-xs justify-center flex q-gutter-sm bg-grey-2"
+            style="max-width: 320px; border-radius: 10px"
+            class="q-pa-xs justify-center content-center items-center flex q-gutter-sm bg-grey-2"
           >
             <q-btn
               color="white"
@@ -105,6 +105,7 @@ const props = defineProps(['reserva', 'detalhes']);
 const refData = ref(null);
 const refHora = ref(null);
 const lclDetalhes = ref({
+  favorite: false,
   nome: '',
   fornecedor: '',
   num_avaliacoes: 0,

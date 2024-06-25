@@ -30,11 +30,6 @@
 import { onMounted, ref } from 'vue';
 
 const props = defineProps({
-  img: {
-    type: String,
-    required: true,
-    default: 'https://cdn.quasar.dev/img/parallax2.jpg',
-  },
   title: {
     type: String,
     required: true,
