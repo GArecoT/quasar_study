@@ -102,6 +102,7 @@ module.exports = configure(function (/* ctx */) {
           light: "#E8EDDF",
         },
       },
+      cssAddon: true,
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
