@@ -9,15 +9,26 @@
       category="Gatinhos"
       categoryColor="blue"
     />
+    <CardTripComponent
+      img="https://roteirobonitoms.com.br/wp-content/uploads/2022/06/balneareo-municipal-bonito-4.jpg"
+      title="Balneário Municipal com mergulho, ciclismo e café da manhã"
+      price="200,00"
+      highlight_text="Mais vendido"
+      :rating="4"
+      cycling
+      diving
+      breakfast
+    />
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import CardComponent from 'components/CardComponent.vue';
+import CardTripComponent from '../components/CardTripComponent.vue';
 
 export default defineComponent({
   name: 'CardPage',
-  components: { CardComponent },
+  components: { CardComponent, CardTripComponent },
 });
 </script>

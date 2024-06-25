@@ -60,6 +60,20 @@
           <q-btn flat>Show</q-btn>
         </q-card-actions>
       </q-card>
+      <q-card
+        class="my-card bg-blue-8 text-white q-ma-sm cursor-pointer"
+        style="width: 250px"
+        @click="route.push('/trip')"
+      >
+        <q-card-section>
+          <div class="text-h6">Trips</div>
+          <div class="text-subtitle2">Components for a turing web store.</div>
+        </q-card-section>
+
+        <q-card-actions>
+          <q-btn flat>Show</q-btn>
+        </q-card-actions>
+      </q-card>
     </div>
   </q-page>
 </template>
