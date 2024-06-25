@@ -104,7 +104,7 @@
             <q-separator />
             <q-expansion-item
               header-class="q-pa-none text-weight-medium"
-              label="Perguntas frequêntes"
+              label="Perguntas frequentes"
             >
               <div
                 class="q-py-sm"
