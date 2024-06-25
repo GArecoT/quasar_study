@@ -44,8 +44,15 @@
         <imageCarousel :images="detalhes.images" />
       </div>
       <div class="flex q-my-sm q-gutter-sm">
-        <q-btn size="0.8rem" outline rounded icon="hiking" label="Trilha" />
-        <q-btn size="0.8rem" outline rounded icon="pool" label="Piscina" />
+        <q-btn
+          size="0.8rem"
+          outline
+          rounded
+          :icon="botoes.get(icone)"
+          :label="icone"
+          v-for="icone in detalhes.icones"
+          :key="icone"
+        />
       </div>
       <div class="row">
         <div class="q-pt-md col-md-8 col-xs-12 q-pr-md-xl">
@@ -137,15 +144,16 @@
 import { ref, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import imageCarousel from '../components/imageCarousel.vue';
+import { botoes } from '../utils/trip.js';
 import TripReserve from '../components/TripReserve.vue';
 
 const q = ref(useQuasar());
-const popup = ref(null);
 const mostrar_mais = ref(false);
 const detalhes = ref({
   nome: 'Balneário em Bonito com trilha e tobogã.',
   fornecedor: 'Por: Marcelo Batata Frita',
   num_avaliacoes: 102,
+  icones: ['trilha', 'piscina'],
   descricao: `
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam massa arcu, rutrum at gravida non, lacinia dictum neque. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec quis auctor elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Ut pretium massa id arcu aliquam, quis finibus leo laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus et ipsum eu arcu malesuada semper nec eget massa. Praesent iaculis, elit in lacinia elementum, erat purus porta massa, quis imperdiet nisl dui quis erat. Curabitur tempus felis nibh, et suscipit eros placerat vel.
 
@@ -192,52 +200,28 @@ Proin in diam felis. Nam a ipsum facilisis, gravida enim non, vestibulum elit. M
   data_disponivel_inicio: '22/05/1999',
   data_disponivel_fim: '15/12/2024',
   datas_exessoes: ['04/07/2024', '25/12/2024', '26/06/2024'],
+  pacotes: [
+    {
+      nome: 'Pacote básico',
+      descricao: 'Pacote básico, sem nenhuma firula.',
+      valor: '100,00',
+      cdg: '0',
+    },
+    {
+      nome: 'Pacote com bóia e churrasco',
+      descricao:
+        'Pacote com churrasco feito na hora, cerveja gelada e bóia para boiar.',
+      valor: '200,00',
+      cdg: '1',
+    },
+  ],
 });
 
 const lclReserva = ref({
   hora: detalhes.value.time[0],
   data: '',
+  pacote: '',
 });
-
-const dias_semana = new Map([
-  [0, 'Domingo'],
-  [1, 'Segunda'],
-  [2, 'Terça'],
-  [3, 'Quarta'],
-  [4, 'Quinta'],
-  [5, 'Sexta'],
-  [6, 'Sábado'],
-]);
-
-function validaExcessoes(date) {
-  for (let data in detalhes.value.datas_exessoes) {
-    if (
-      detalhes.value.datas_exessoes[data].split('/').reverse().join('/') == date
-    )
-      return false;
-  }
-  return true;
-}
-
-function dateOptions(date) {
-  const temp =
-    date >=
-      detalhes.value.data_disponivel_inicio.split('/').reverse().join('/') &&
-    date >= new Date().toLocaleDateString().split('/').reverse().join('/') &&
-    date <= detalhes.value.data_disponivel_fim.split('/').reverse().join('/') &&
-    validaExcessoes(date);
-
-  return temp;
-}
-
-function converteData(date) {
-  const temp = new Date(date.split('-').reverse());
-  return (
-    dias_semana.get(temp.getDay()) +
-    ' - ' +
-    temp.toLocaleDateString('en-GB', { day: 'numeric', month: 'numeric' })
-  );
-}
 
 onMounted(() => {
   lclReserva.value.data = new Date().toLocaleDateString().replaceAll('/', '-');

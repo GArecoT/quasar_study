@@ -32,23 +32,12 @@
             class="q-gutter-x-sm"
             :class="props.highlight_text == '' ? '' : 'q-pl-xs'"
           >
-            <q-icon name="directions_bike" v-if="props.cycling">
-              <q-tooltip> Ciclismo </q-tooltip>
-            </q-icon>
-            <q-icon name="pool" v-if="props.pool">
-              <q-tooltip> Piscina </q-tooltip>
-            </q-icon>
-            <q-icon name="scuba_diving" v-if="props.diving">
-              <q-tooltip> Mergulho </q-tooltip>
-            </q-icon>
-            <q-icon name="hiking" v-if="props.hiking">
-              <q-tooltip> Trilha </q-tooltip>
-            </q-icon>
-            <q-icon name="coffee_maker" v-if="props.breakfast">
-              <q-tooltip> Café da manhã </q-tooltip>
-            </q-icon>
-            <q-icon name="hotel" v-if="props.hotel">
-              <q-tooltip> Pousada </q-tooltip>
+            <q-icon
+              :name="botoes.get(icon)"
+              v-for="icon in props.icons"
+              :key="icon"
+            >
+              <q-tooltip> {{ icon }} </q-tooltip>
             </q-icon>
           </div>
         </div>
@@ -86,6 +75,7 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue';
+import { botoes } from 'src/utils/trip';
 
 const props = defineProps({
   img: {
@@ -97,12 +87,13 @@ const props = defineProps({
   highlight_text: { type: String, required: false, default: '' },
   price: { type: String, required: true, default: '' },
   rating: { type: Number, required: true, default: 0 },
-  cycling: { type: Boolean, required: false, default: false },
-  pool: { type: Boolean, required: false, default: false },
-  diving: { type: Boolean, required: false, default: false },
-  hiking: { type: Boolean, required: false, default: false },
-  breakfast: { type: Boolean, required: false, default: false },
-  hotel: { type: Boolean, required: false, default: false },
+  icons: {
+    type: Array,
+    required: false,
+    default() {
+      return [''];
+    },
+  },
   favorite: { type: Boolean, required: false, default: false },
 });
 const rating = ref(props.rating);

@@ -3,7 +3,6 @@
     class="q-ma-sm q-pa-md bg-grey-2 full-width shadow-2"
     style="border-radius: 20px"
   >
-    <p class="text-weight-medium" style="font-size: 1rem">Reserve Agora!</p>
     <div class="flex q-gutter-x-sm">
       <q-btn
         rounded
@@ -15,7 +14,7 @@
         text-color="black"
       >
         <q-popup-proxy
-          ref="popup"
+          ref="refData"
           transition-show="scale"
           transition-hide="scale"
         >
@@ -27,7 +26,7 @@
             flat
             input-debounce="500"
             mask="DD-MM-YYYY"
-            @update:model-value="popup.hide()"
+            @update:model-value="refData.hide()"
           />
         </q-popup-proxy>
       </q-btn>
@@ -41,7 +40,7 @@
         text-color="black"
       >
         <q-popup-proxy
-          ref="popup"
+          ref="refHora"
           transition-show="scale"
           transition-hide="scale"
         >
@@ -59,16 +58,38 @@
               :key="time"
               @click="
                 lclReserva.hora = time;
-                popup.hide();
+                refHora.hide();
               "
             />
           </div> </q-popup-proxy
       ></q-btn>
     </div>
+    <q-item
+      class="q-my-sm"
+      tag="label"
+      v-for="pacote in lclDetalhes.pacotes"
+      :key="pacote"
+    >
+      <q-item-section avatar top>
+        <q-radio
+          v-model="lclReserva.pacote"
+          :val="pacote.cdg"
+          color="indigo-5"
+        />
+      </q-item-section>
+      <q-item-section>
+        <q-item-label>{{ pacote.nome }}</q-item-label>
+        <q-item-label caption>{{ pacote.descricao }}</q-item-label>
+      </q-item-section>
+    </q-item>
+    <p class="text-right q-pt-md" style="font-size: 1.2rem">
+      <span class="text-weight-medium">Total: </span>R$ {{ valor }}
+    </p>
     <q-btn
+      :disable="parseInt(valor) <= 0"
       rounded
       unelevated
-      class="full-width q-mx-sm q-mt-xl"
+      class="full-width q-mx-sm"
       color="indigo-5"
       text-color="white"
       label="Reservar"
@@ -81,6 +102,8 @@ import { useQuasar } from 'quasar';
 import { ref, defineProps, watch, onMounted } from 'vue';
 
 const props = defineProps(['reserva', 'detalhes']);
+const refData = ref(null);
+const refHora = ref(null);
 const lclDetalhes = ref({
   nome: '',
   fornecedor: '',
@@ -95,11 +118,14 @@ const lclDetalhes = ref({
   data_disponivel_inicio: '',
   data_disponivel_fim: '',
   datas_exessoes: [],
+  pacotes: [],
 });
+const valor = ref('0,00');
 
 const lclReserva = ref({
   hora: lclDetalhes.value.time[0],
   data: '',
+  pacote: '',
 });
 
 const dias_semana = new Map([
@@ -146,6 +172,19 @@ function converteData(date) {
 
 watch(props.reserva, () => (lclReserva.value = props.reserva));
 watch(props.detalhes, () => (lclDetalhes.value = props.detalhes));
+watch(
+  lclReserva,
+  () =>
+    lclReserva.value.pacote !== ''
+      ? (valor.value =
+          lclDetalhes.value.pacotes[
+            lclDetalhes.value.pacotes.findIndex(
+              (item) => item.cdg == lclReserva.value.pacote
+            )
+          ].valor)
+      : '',
+  { deep: true }
+);
 
 onMounted(() => {
   lclReserva.value = props.reserva;

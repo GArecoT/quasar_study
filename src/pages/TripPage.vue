@@ -86,12 +86,7 @@
                 :price="card.price"
                 :highlight_text="card.highlight_text"
                 :rating="card.rating"
-                :cycling="card.cycling"
-                :diving="card.diving"
-                :breakfast="card.breakfast"
-                :hiking="card.hiking"
-                :pool="card.pool"
-                :hotel="card.hotel"
+                :icons="card.icons"
               />
             </div>
           </Slide>
@@ -158,23 +153,21 @@ const cards = [
     price: '100,00',
     highlight_text: 'oferta',
     rating: 4,
-    hiking: true,
-    pool: true,
+    icons: ['ciclismo'],
   },
   {
     img: 'https://images.pexels.com/photos/2410577/pexels-photo-2410577.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     title: 'Pousada com café da manhã a natureza.',
     price: '130,00',
     rating: 3.5,
-    hotel: true,
-    breakfast: true,
+    icons: ['pousada', 'café da manhã'],
   },
   {
     img: 'https://images.pexels.com/photos/20547069/pexels-photo-20547069/free-photo-of-panorama-vista-paisagem-natureza.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     title: 'Trilha ao ar livre com guia.',
     price: '54,99',
     rating: 5,
-    hiking: true,
+    icons: ['trilha'],
   },
   {
     img: 'https://images.pexels.com/photos/788200/pexels-photo-788200.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -182,7 +175,7 @@ const cards = [
     price: '40,00',
     highlight_text: 'popular',
     rating: 4,
-    pool: true,
+    icons: ['piscina'],
   },
   {
     img: 'https://images.pexels.com/photos/20489100/pexels-photo-20489100/free-photo-of-floresta-selva-mata-arvores.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -190,7 +183,7 @@ const cards = [
     price: '67,45',
     highlight_text: 'bem avaliado',
     rating: 5,
-    cycling: true,
+    icons: ['ciclismo'],
   },
   {
     img: 'https://images.pexels.com/photos/889042/pexels-photo-889042.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -198,7 +191,7 @@ const cards = [
     price: '15,99',
     highlight_text: 'oferta',
     rating: 1,
-    hotel: true,
+    icons: ['pousada'],
   },
   {
     img: 'https://images.pexels.com/photos/1752806/pexels-photo-1752806.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -206,7 +199,7 @@ const cards = [
     price: '40,00',
     highlight_text: 'esgota rápido',
     rating: 5,
-    breakfast: true,
+    icons: ['café da manhã'],
   },
   {
     img: 'https://images.pexels.com/photos/18079017/pexels-photo-18079017/free-photo-of-rojas-del-paraiso.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -214,8 +207,7 @@ const cards = [
     price: '170,00',
     highlight_text: 'popular',
     rating: 4,
-    hiking: true,
-    pool: true,
+    icons: ['piscina', 'trilha'],
   },
 ];
 
