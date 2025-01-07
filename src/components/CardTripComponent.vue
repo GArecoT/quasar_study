@@ -17,7 +17,7 @@
       @click="favorite = !favorite"
     />
     <div class="flex" @click="router.push('/trip_details')">
-      <div>
+      <div class="full-width">
         <div
           class="flex full-width q-pa-sm items-center"
           style="min-height: 45px"
@@ -47,8 +47,11 @@
             font-size: 1rem;
             max-height: 60px;
             min-height: 60px;
-            overflow-y: hidden;
+            overflow: hidden;
             text-overflow: ellipsis;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            word-break: break-word;
           "
         >
           {{ props.title }}
@@ -109,5 +112,6 @@ onMounted(() => {
 <style>
 .card_trip {
   border-radius: 10px;
+  max-width: 250px;
 }
 </style>

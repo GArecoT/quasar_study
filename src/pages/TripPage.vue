@@ -25,7 +25,6 @@
       </q-input>
     </div>
     <q-carousel
-      autoplay
       animated
       v-model="slide"
       arrows
@@ -64,78 +63,65 @@
         />
       </q-carousel-slide>
     </q-carousel>
+
     <div class="full-width flex justify-center">
       <div
         class="q-px-xs-sm q-px-md-none q-py-sm"
         style="width: 100%; max-width: 1200px"
       >
         <span class="q-pa-sm q-mt-sm" style="font-size: 1.2rem">Cards</span>
-        <Carousel
-          :breakpoints="breakpoints"
-          style="max-width: 1200px"
-          :mouseDrag="false"
-          :touchDrag="false"
-        >
-          <Slide v-for="card in cards" :key="card.title">
-            <div class="carousel__item">
-              <CardTripComponent
-                class="q-my-sm"
-                style="white-space: normal"
-                :img="card.img"
-                :title="card.title"
-                :price="card.price"
-                :highlight_text="card.highlight_text"
-                :rating="card.rating"
-                :icons="card.icons"
-              />
-            </div>
-          </Slide>
-
-          <template #addons>
-            <Navigation />
-          </template>
-        </Carousel>
       </div>
     </div>
-    <div class="full-width flex justify-center">
+    <div
+      class="row justify-center items-center full-width relative-position"
+      style="max-width: 1200px"
+    >
+      <q-btn
+        class="absolute bg-white z-top"
+        style="left: 0px"
+        round
+        icon="keyboard_arrow_left"
+        unelevated
+        @click="scrollTest = scroll('batata', scrollTest, false, 2)"
+      />
       <div
-        class="q-px-xs-sm q-px-md-none q-py-sm"
-        style="width: 100%; max-width: 1200px"
+        id="batata"
+        class="full-width relative-position col hide-scroll"
+        style="
+          width: 100%;
+          white-space: nowrap;
+          overflow-y: hidden;
+          scroll-behavior: smooth;
+        "
       >
-        <span class="q-pa-sm q-mt-sm" style="font-size: 1.2rem"
-          >Categorias</span
-        >
-        <Carousel
-          :breakpoints="breakpoints"
-          style="max-width: 1200px"
-          :mouseDrag="false"
-          :touchDrag="false"
-        >
-          <Slide
-            v-for="category in categories"
-            :key="category.title"
-            style="display: block !important"
-          >
-            <div class="carousel__item">
-              <TripCategoryComponent
-                class="q-my-sm"
-                style="white-space: normal"
-                :img="category.img"
-                :title="category.title"
-              />
-            </div>
-          </Slide>
-
-          <template #addons>
-            <Navigation />
-          </template>
-        </Carousel>
+        <CardTripComponent
+          style="display: inline-block"
+          v-for="(card, index) in cards"
+          :key="card"
+          class="q-my-sm"
+          :img="card.img"
+          :title="card.title"
+          :price="card.price"
+          :highlight_text="card.highlight_text"
+          :rating="card.rating"
+          :icons="card.icons"
+          :id="`c${index}`"
+        />
       </div>
+      <q-btn
+        round
+        class="absolute bg-white z-top"
+        style="right: 0px"
+        unelevated
+        icon="keyboard_arrow_right"
+        @click="scrollTest = scroll('batata', scrollTest, true, 2)"
+      />
     </div>
   </div>
 </template>
 <script setup>
-import 'vue3-carousel/dist/carousel.css';
+// import 'vue3-carousel/dist/carousel.css';
+// import '../../node_modules/vue3-carousel/dist'
 import CardTripComponent from 'src/components/CardTripComponent.vue';
 import BannerTripComponent from 'src/components/BannerTripComponent.vue';
 import TripCategoryComponent from 'src/components/TripCategoryComponent.vue';
@@ -145,6 +131,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 const slide = ref(1);
 const q = ref(useQuasar());
+const scrollTest = ref(0);
 
 const cards = [
   {
@@ -255,8 +242,33 @@ const breakpoints = {
     snapAlign: 'start',
   },
 };
+
+function scroll(id, scrollWidth, moveRight, num) {
+  const container = document.getElementById(id);
+  const width = container.scrollWidth;
+  const scroll = container.clientWidth;
+
+  let moveLeft;
+  if (moveRight) {
+    moveLeft = scrollWidth + scroll;
+    if (moveLeft > width) {
+      container.scroll({ left: width, top: 0, behavior: 'smooth' });
+      moveLeft = width;
+    } else container.scroll({ left: moveLeft, top: 0, behavior: 'smooth' });
+  } else {
+    moveLeft = scrollWidth - scroll;
+    if (moveLeft > 0) {
+      container.scroll({ left: moveLeft, top: 0, behavior: 'smooth' });
+    } else {
+      container.scroll({ left: 0, top: 0, behavior: 'smooth' });
+      moveLeft = 0;
+    }
+  }
+  return moveLeft;
+}
 </script>
 <style>
+@import '../../node_modules/vue3-carousel/dist/carousel.css';
 .carroussel {
   padding: 0px !important;
 }
@@ -266,5 +278,16 @@ const breakpoints = {
   background: #fff;
   border-radius: 100%;
   box-shadow: rgba(17, 12, 60, 18.15) 0px 0px 10px 2px;
+}
+html {
+  scroll-behavior: smooth;
+}
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 </style>
